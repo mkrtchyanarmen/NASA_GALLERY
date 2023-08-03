@@ -3,6 +3,7 @@ import SearchInput from '@components/SearchInput';
 import YearFilter, { YearFilterProps } from '@components/YearFilter';
 import { FC, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'react-router-dom';
 
 import { SearchImagesParams } from '../utils';
 
@@ -11,12 +12,18 @@ export type ActionBarProps = {
 };
 
 const ActionBar: FC<ActionBarProps> = ({ onSubmit }) => {
+  const [params, setSearchParams] = useSearchParams();
+
   const { register, handleSubmit, setValue, watch } = useForm<{
     endDate: null | number;
     searchText: string;
     startDate: null | number;
   }>({
-    defaultValues: { searchText: '', startDate: null, endDate: null },
+    defaultValues: {
+      searchText: params.get('q') || '',
+      startDate: params.has('year_start') ? Number(params.get('year_start')) : null,
+      endDate: params.has('year_end') ? Number(params.get('year_end')) : null,
+    },
   });
   const { ref: searchRef, ...searchInputProps } = register('searchText');
 
@@ -35,8 +42,21 @@ const ActionBar: FC<ActionBarProps> = ({ onSubmit }) => {
   return (
     <form
       className="flex items-end mb-8 gap-3"
-      onSubmit={handleSubmit((data) => {
-        onSubmit({ q: data.searchText, year_end: data.endDate, year_start: data.startDate });
+      onSubmit={handleSubmit(({ searchText, startDate: year_start, endDate: year_end }) => {
+        const queryParams: { q: string; year_end?: string; year_start?: string } = {
+          q: searchText,
+        };
+
+        if (year_start) {
+          queryParams.year_start = String(year_start);
+        }
+        if (year_end) {
+          queryParams.year_end = String(year_end);
+        }
+
+        setSearchParams(queryParams);
+
+        onSubmit({ q: searchText, year_end, year_start });
       })}
     >
       <SearchInput {...{ ...searchInputProps }} ref={searchRef} />

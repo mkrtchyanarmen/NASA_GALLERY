@@ -1,15 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import ActionBar from './ActionBar';
 import Result from './Result';
 import { searchImages, SearchImagesParams } from './utils';
 
 const Home = () => {
+  const [searchParams] = useSearchParams();
+
   const [params, setParams] = useState<SearchImagesParams>({
-    q: '',
-    year_start: null,
-    year_end: null,
+    q: searchParams.get('q') || '',
+    year_start: searchParams.has('year_start') ? Number(searchParams.get('year_start')) : null,
+    year_end: searchParams.has('year_end') ? Number(searchParams.get('year_end')) : null,
   });
 
   const { data, isFetching } = useQuery({
@@ -22,7 +25,6 @@ const Home = () => {
     <div className="p-8">
       <ActionBar
         onSubmit={(inputParams: SearchImagesParams) => {
-          console.log('aaa', inputParams);
           setParams(inputParams);
         }}
       />
