@@ -14,8 +14,8 @@ const Result: FC<ResultProps> = ({ items }) => {
 
   return (
     <div className="w-full grid grid-cols-auto-60 gap-2">
-      {items?.map(({ data, href }) => (
-        <ResultCard key={data[0].nasa_id} dataHref={href} />
+      {items?.map(({ data }) => (
+        <ResultCard key={data[0].nasa_id} id={data[0].nasa_id} />
       ))}
     </div>
   );

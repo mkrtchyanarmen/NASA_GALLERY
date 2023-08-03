@@ -5,7 +5,8 @@
       "@pages/*": ["./src/pages/*"],
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
-      "@hooks": ["./src/hooks/index.ts"]
+      "@hooks": ["./src/hooks/index.ts"],
+      "@utils": ["./src/utils/index.ts"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,

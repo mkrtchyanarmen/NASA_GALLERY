@@ -18,14 +18,14 @@ const Home = () => {
 
   const { data, isFetching } = useQuery({
     queryFn: async () => searchImages(params),
-    // Should have all the dinamic data included not to face catching issue
+    // Should have all the dinamic params, not to face catching issue
     queryKey: ['search', params.q, params.year_start, params.year_end],
     // Should not send request if the query is empty string
     enabled: params.q.length > 0,
   });
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8">
       <ActionBar
         onSubmit={(inputParams: SearchImagesParams) => {
           setParams(inputParams);

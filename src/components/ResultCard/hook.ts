@@ -1,12 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
+import Utils from '@utils';
 
-import { getMetadata } from './utils';
-
-export const useDataFromJson = (href: string, isEnabled: boolean) => {
+export const useDataFromJson = (id: string, isEnabled: boolean) => {
   const { data } = useQuery({
-    queryFn: async () => getMetadata(href),
-    // Only one queryKey, as each file has it's unique url
-    queryKey: [href],
+    queryFn: async () => Utils.getMetadataAndImage(id),
+    queryKey: [id],
     // Being enabled when componen is in the view
     enabled: isEnabled,
   });

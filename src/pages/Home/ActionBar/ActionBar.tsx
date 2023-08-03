@@ -47,7 +47,7 @@ const ActionBar: FC<ActionBarProps> = ({ onSubmit }) => {
 
   return (
     <form
-      className="flex items-end mb-8 gap-3"
+      className="flex items-end mb-8 gap-3 flex-wrap"
       onSubmit={handleSubmit(({ searchText, startDate: year_start, endDate: year_end }) => {
         const queryParams: { q: string; year_end?: string; year_start?: string } = {
           q: searchText,
