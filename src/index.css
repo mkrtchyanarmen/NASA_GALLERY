@@ -1,3 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,900;1,700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .vertical-scrollbar::-webkit-scrollbar {
+    display: block;
+    width: 0.4rem;
+    background-color: none;
+  }
+  .vertical-scrollbar::-webkit-scrollbar-track {
+    background: white;
+    border-radius: 0.25rem;
+  }
+  .vertical-scrollbar::-webkit-scrollbar-thumb {
+    background: #c4c4c4;
+    border-radius: 0.25rem;
+  }
+}
