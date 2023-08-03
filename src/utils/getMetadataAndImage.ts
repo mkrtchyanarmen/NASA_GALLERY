@@ -74,7 +74,7 @@ export const getMetadata = async (metadataUrl: string): Promise<ResolvedMetadata
 
 export const getMetadataAndImage = async (nasaId: string) => {
   const { metadataUrl, img } = await getUrls(nasaId);
-  const metadata = await getMetadata(metadataUrl);
+  const metadata = await getMetadata(metadataUrl.replace('http://', 'https://'));
 
   // Combine images and metadata
   return { ...metadata, img };
