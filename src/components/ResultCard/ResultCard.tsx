@@ -10,9 +10,15 @@ type ResultCardProps = {
 };
 
 const ResultCard: FC<ResultCardProps> = ({ dataHref }) => {
+  // Using react-intersection-observer to load data once the componen is in view
+  // rootMargin for  loading data a little sooner (change it if nessary)
+  // triggerOnce for fetching only once, other case it will load data any time the component appears in the view
   const { ref, inView } = useInView({ rootMargin: '200px', triggerOnce: true });
+
+  // Metadata
   const data = useDataFromJson(dataHref, inView);
 
+  // TODO: work on design
   return (
     <Link
       ref={ref}

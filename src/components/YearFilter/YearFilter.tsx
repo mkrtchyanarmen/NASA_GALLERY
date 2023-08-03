@@ -10,10 +10,13 @@ type FilterDropDownProps = {
   selected: number | null;
 };
 
+// Reusable dropdown for selecting year range
 const FilterDropDown: FC<FilterDropDownProps> = ({ options, onSelect, placeholder, selected }) => {
+  // For catching outside click
   const dropDownRef = useRef(null);
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
+  // Close dropdown on outside click
   Hooks.useOutSideClick(dropDownRef, () => {
     setIsDropdownOpened(false);
   });
@@ -43,6 +46,7 @@ const FilterDropDown: FC<FilterDropDownProps> = ({ options, onSelect, placeholde
                   key={year}
                   className="w-full h-10 border-b hover:bg-slate-400 cursor-pointer pl-3 pr-1 flex items-center"
                   onClick={() => {
+                    // Close the dropdown on select
                     setIsDropdownOpened(false);
                     onSelect(year);
                   }}

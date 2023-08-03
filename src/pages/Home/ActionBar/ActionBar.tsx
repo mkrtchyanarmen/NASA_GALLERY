@@ -19,16 +19,22 @@ const ActionBar: FC<ActionBarProps> = ({ onSubmit }) => {
     searchText: string;
     startDate: null | number;
   }>({
+    // Set search query params as default
+    // TODO: structure change because of code duplication (DRY)
     defaultValues: {
       searchText: params.get('q') || '',
       startDate: params.has('year_start') ? Number(params.get('year_start')) : null,
       endDate: params.has('year_end') ? Number(params.get('year_end')) : null,
     },
   });
+
+  // Sync input with react-hook-form
   const { ref: searchRef, ...searchInputProps } = register('searchText');
 
   const endDate = watch('endDate');
   const startDate = watch('startDate');
+
+  // Memorized to ignore unnessary renders
   const yaerFilterProps: YearFilterProps = useMemo(
     () => ({
       changeEnd: (date) => setValue('endDate', date),
@@ -47,9 +53,12 @@ const ActionBar: FC<ActionBarProps> = ({ onSubmit }) => {
           q: searchText,
         };
 
+        // Check param before add as it's optional, not to have null in URL
         if (year_start) {
           queryParams.year_start = String(year_start);
         }
+
+        // Check param before add as it's optional, not to have null in URL
         if (year_end) {
           queryParams.year_end = String(year_end);
         }

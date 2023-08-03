@@ -4,6 +4,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 
 export type SearchInputProps = UseFormRegisterReturn<string>;
 
+// ForwardRef is used as this is react-hook-form component and shouldn'r work with referance
 const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>((props, ref) => {
   return (
     <div className="max-w-3xl grow">

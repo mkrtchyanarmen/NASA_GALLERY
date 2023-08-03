@@ -29,6 +29,7 @@ export type SearchImagesParams = {
 const API_URL = import.meta.env.VITE_API_URL;
 const baseURL = `${API_URL}/search`;
 
+// Takes care of fetching data with all filters params (Strictly typed)
 export const searchImages = async (params: SearchImagesParams) => {
   const response = await axios<{ collection: SearchImagesResponseType }>({
     baseURL,
